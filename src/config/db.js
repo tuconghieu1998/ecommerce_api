@@ -1,15 +1,15 @@
 import mysql from "mysql";
 
+export const mysqlConnection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "ecommerce"
+  });
+
 const connectDB = async () => {
     try {
-        const con = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "",
-            database: "ecommerce"
-          });
-          
-          await con.connect();
+        await mysqlConnection.connect();
     }
     catch(e) {
         console.log(err);

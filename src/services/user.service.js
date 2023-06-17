@@ -1,3 +1,4 @@
+import User from "../models/user.model.js";
 import catchAsync from "../utils/catchAsync.js";
 import { ResponseType } from "../utils/constants.js";
 
@@ -8,16 +9,7 @@ import { ResponseType } from "../utils/constants.js";
  * 
 */
 export const queryUsers = catchAsync(async(req) => {
-  const users = [
-    {
-      id: 1,
-      name: "Hieu1"
-    },
-    {
-      id: 2,
-      name: "Hieu2"
-    }
-  ];
+  const users = await User.getAllUsers();
 
   // check if users doesn't exist
   if(users.length === 0) {
