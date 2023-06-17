@@ -3,7 +3,8 @@ import { mysqlConnection } from "../config/db.js";
 const User = {
   getAllUsers: () => {
     return new Promise((resolve, reject) => {
-      mysqlConnection.query("SELECT * FROM user WHERE 1", (error, results) => {
+      let query = "SELECT id, username, first_name, last_name, telephone, created_at, modified_at FROM user WHERE 1";
+      mysqlConnection.query(query, (error, results) => {
         if(error) {
           return reject(error);
         }
