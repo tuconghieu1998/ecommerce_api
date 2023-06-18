@@ -113,3 +113,23 @@ export const createCategory = catchAsync(async (body) => {
     category: categories[0]
   };
 });
+
+export const deleteCategoryById = catchAsync(async (id) => {
+  // 3) Find category document and delete it
+  const result = await Category.deleteCategoryById(id);
+
+  if(result.affectedRows === 0) {
+    return {
+      type: ResponseType.ERROR,
+      message: "noCategoriesFound",
+      statusCode: 404
+    }
+  }
+
+  // 4) If everything is OK, send data
+  return {
+    type: ResponseType.SUCCESS,
+    message: 'successfulDeleteCategory',
+    statusCode: 200,
+  };
+});

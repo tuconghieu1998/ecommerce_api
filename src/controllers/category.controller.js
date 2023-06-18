@@ -100,3 +100,22 @@ export const createCategory = catchAsync(async (req, res) => {
     category
   });
 });
+
+export const deleteCategoryById = catchAsync(async (req, res) => {
+  // 1) Find category document and delete it
+  const {type, message, statusCode} = await categoryService.deleteCategoryById(req.params.id);
+
+  // 2) Check if there is an error
+  if (type === ResponseType.ERROR) {
+    return res.status(statusCode).json({
+      type,
+      message
+    });
+  }
+
+  // 3) If everything is OK, send data
+  return res.status(statusCode).json({
+    type,
+    message
+  });
+});
