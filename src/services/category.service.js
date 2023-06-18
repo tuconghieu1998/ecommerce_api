@@ -52,7 +52,15 @@ export const queryCategoryById = catchAsync(async(id, req) => {
 
 export const updateCategoryDetails = catchAsync(async (id, body) => {
   // 3) Find category document and update it
-  await Category.updateCategoryDetailsById(id, body);
+  const result = await Category.updateCategoryDetailsById(id, body);
+
+  if(result.affectedRows === 0) {
+    return {
+      type: ResponseType.ERROR,
+      message: "noCategoriesFound",
+      statusCode: 404
+    }
+  }
 
   const categories = await Category.getCategoryById(id);
   if(categories.length ===0) {
