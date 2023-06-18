@@ -3,8 +3,12 @@ import connectDB from "./config/db.js";
 import express from 'express';
 import router from "./routes/index.js";
 import bodyParser from "body-parser";
+import dotenv from 'dotenv';
 
-const port = 3000;
+// load env config
+dotenv.config();
+
+const {API_PORT} = process.env;
 
 // connect MySQL Server
 connectDB();
@@ -17,7 +21,7 @@ app.use(bodyParser.json());
 // use router
 app.use("/", router);
 
-app.listen(port);
+app.listen(API_PORT);
 
 // const server = http.createServer((req, res) => {
 //   res.statusCode = 200;

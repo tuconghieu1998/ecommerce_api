@@ -1,7 +1,9 @@
 import mysql from "mysql";
 
+const {MYSQL_HOST} = process.env;
+
 export const mysqlConnection = mysql.createConnection({
-    host: "localhost",
+    host: MYSQL_HOST,
     user: "root",
     password: "",
     database: "ecommerce"
