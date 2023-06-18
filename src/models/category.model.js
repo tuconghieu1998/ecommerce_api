@@ -50,6 +50,18 @@ const Category = {
       });
     })
   },
+
+  createCategory: (body) => {
+    return new Promise((resolve, reject) => {
+      let query = "INSERT INTO product_category (name, description) VALUES (?, ?)";
+      mysqlConnection.query(query, [body.name, body.description], (error, results) => {
+        if(error) {
+          return reject(error);
+        }
+        return resolve(results);
+      });
+    })
+  },
 }
 
 export default Category;

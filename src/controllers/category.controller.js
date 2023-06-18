@@ -62,9 +62,28 @@ export const getCategoryById = catchAsync(async (req, res) => {
 });
 
 export const updateCategoryDetails = catchAsync(async (req, res) => {
-  console.log('handle update',req.params.id, req.body);
   // 1) Find category document and update it's details
   const { type, message, statusCode, category } = await categoryService.updateCategoryDetails(req.params.id, req.body);
+
+  // 2) Check if there is an error
+  if (type === ResponseType.ERROR) {
+    return res.status(statusCode).json({
+      type,
+      message
+    });
+  }
+
+  // 3) If everything is OK, send data
+  return res.status(statusCode).json({
+    type,
+    message,
+    category
+  });
+});
+
+export const createCategory = catchAsync(async (req, res) => {
+  // 1) Find category document and update it's details
+  const { type, message, statusCode, category } = await categoryService.createCategory(req.body);
 
   // 2) Check if there is an error
   if (type === ResponseType.ERROR) {
