@@ -11,7 +11,7 @@ connectDB();
 const app = express();
 
 // use router
-app.use("/api", router);
+app.use("/", router);
   
 app.listen(port);
 

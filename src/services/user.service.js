@@ -22,7 +22,7 @@ export const queryUsers = catchAsync(async(req) => {
 
   // if everything is OK, send data
   return {
-    type: 'Success',
+    type: ResponseType.SUCCESS,
     message: 'successfulUsersFound',
     statusCode: 200,
     users     
