@@ -1,0 +1,70 @@
+import catchAsync from "../utils/catchAsync.js";
+import { ResponseType } from "../utils/constants.js";
+import User from '../models/user.model.js';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+
+export const registerUser = catchAsync(async(body) => {
+  // get user input
+  const {username, password, first_name, last_name, telephone} = body;
+  //check params
+  if(!(username && password && first_name && last_name)) {
+    return {
+      type: ResponseType.ERROR,
+      message: "Invalid params",
+      statusCode: 404
+    }
+  }
+  if(!telephone) {
+    telephone = ''; 
+  }
+
+  // check if user already exist
+  const oldUserRows = await User.getUserByUsername(username);
+  if(oldUserRows.length > 0) {
+    return {
+      type: ResponseType.ERROR,
+      statusCode: 409,
+      message: "usernameExist"
+    }
+  }
+
+  // Encrypt user password
+  const encryptedPassword = await bcrypt.hash(password, 10);
+
+  // create user in database
+  const result = await User.createUser({
+    username: username.toLowerCase(),
+    password: encryptedPassword,
+    first_name,
+    last_name,
+    telephone
+  });
+
+  const userRows = await User.getUserById(result.insertId);
+  if(userRows.length === 0) {
+    return {
+      type: ResponseType.ERROR,
+      statusCode: 400,
+      message: 'userCreateFail',
+    }
+  }
+  const user = userRows[0];
+  // create token
+  const token = jwt.sign(
+    {user_id: user.id, username},
+    process.env.TOKEN_KEY,
+    {
+      expiresIn: "24h"
+    }
+  );
+  // save user token
+  user.token = token;
+  // return new user
+  return {
+    type: ResponseType.SUCCESS,
+    message: "successfulRegiterUser",
+    statusCode: 200,
+    user
+  }
+});

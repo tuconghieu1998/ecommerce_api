@@ -8,7 +8,12 @@ import {
   updateCategoryDetails,
   createCategory,
   deleteCategoryById
-} from "./category.service.js"
+} from "./category.service.js";
+
+import {
+  registerUser
+}
+from './auth.service.js';
 
 const userService = {
   queryUsers
@@ -22,7 +27,12 @@ const categoryService = {
   deleteCategoryById
 };
 
+const authService = {
+  registerUser
+};
+
 export {
   userService,
-  categoryService
+  categoryService,
+  authService
 };
