@@ -4,7 +4,8 @@ import {
 
 import {
   queryCategories,
-  queryCategoryById
+  queryCategoryById,
+  updateCategoryDetails
 } from "./category.service.js"
 
 const userService = {
@@ -13,7 +14,8 @@ const userService = {
 
 const categoryService = {
   queryCategories,
-  queryCategoryById
+  queryCategoryById,
+  updateCategoryDetails
 };
 
 export {
