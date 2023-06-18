@@ -27,4 +27,25 @@ export const queryCategories = catchAsync(async(req) => {
     statusCode: 200,
     categories     
   }
+});
+
+export const queryCategoryById = catchAsync(async(id, req) => {
+  const categories = await Category.getCategoryById(id);
+
+  // check if categories doesn't exist
+  if(categories.length === 0) {
+    return {
+      type: ResponseType.ERROR,
+      message: "noCategoriesFound",
+      statusCode: 404
+    }
+  }
+
+  // if everything is OK, send data
+  return {
+    type: ResponseType.SUCCESS,
+    message: 'successfulCategorysFound',
+    statusCode: 200,
+    category: categories[0]     
+  }
 })

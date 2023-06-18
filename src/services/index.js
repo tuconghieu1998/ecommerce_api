@@ -3,7 +3,8 @@ import {
 } from './user.service.js';
 
 import {
-  queryCategories
+  queryCategories,
+  queryCategoryById
 } from "./category.service.js"
 
 const userService = {
@@ -11,7 +12,8 @@ const userService = {
 };
 
 const categoryService = {
-  queryCategories
+  queryCategories,
+  queryCategoryById
 };
 
 export {

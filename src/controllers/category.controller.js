@@ -39,3 +39,24 @@ export const getCategories = catchAsync(async (req, res) => {
     categories
   })
 });
+
+export const getCategoryById = catchAsync(async (req, res) => {
+
+  // get category by id
+  const {type, message, statusCode, category} = await categoryService.queryCategoryById(req.params.id);
+
+  // check error
+  if(type == ResponseType.ERROR) {
+    return res.status(statusCode).json({
+      type,
+      message: message
+    })
+  }
+
+  // if everything is OK, send data
+  return res.status(statusCode).json({
+    type,
+    message,
+    category
+  })
+});
