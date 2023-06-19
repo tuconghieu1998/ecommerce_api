@@ -11,7 +11,8 @@ import {
 } from "./category.service.js";
 
 import {
-  registerUser
+  registerUser,
+  login
 }
 from './auth.service.js';
 
@@ -28,7 +29,8 @@ const categoryService = {
 };
 
 const authService = {
-  registerUser
+  registerUser,
+  login
 };
 
 export {

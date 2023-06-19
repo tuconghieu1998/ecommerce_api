@@ -68,3 +68,57 @@ export const registerUser = catchAsync(async(body) => {
     user
   }
 });
+
+export const login = catchAsync(async(body) => {
+  // get user input
+  const {username, password} = body;
+  //check params
+  if(!(username && password)) {
+    return {
+      type: ResponseType.ERROR,
+      message: "All input is required",
+      statusCode: 404
+    }
+  }
+ 
+  // validate if user exist in database
+  const userRows = await User.getUserByUsername(username);
+  if(userRows.length === 0) {
+    return {
+      type: ResponseType.ERROR,
+      statusCode: 409,
+      message: "Account doesn't exist"
+    }
+  }
+
+  const user = userRows[0];
+  // compare password
+  if(!await bcrypt.compare(password, user.password)) {
+    return {
+      type: ResponseType.ERROR,
+      statusCode: 409,
+      message: "wrongPassword"
+    }
+  }
+
+  // create token
+  const token = jwt.sign(
+    { user_id: user.id, username },
+    process.env.TOKEN_KEY,
+    {
+      expiresIn: "24h",
+    }
+  );
+
+  // save user token
+  user.token = token;
+  user.password = undefined;
+
+  // return new user
+  return {
+    type: ResponseType.SUCCESS,
+    message: "successfulLogin",
+    statusCode: 200,
+    user
+  }
+});

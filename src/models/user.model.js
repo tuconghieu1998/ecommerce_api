@@ -27,7 +27,7 @@ const User = {
 
   getUserByUsername: (username) => {
     return new Promise((resolve, reject) => {
-      let query = "SELECT id, username, first_name, last_name, telephone, created_at, modified_at FROM user WHERE username = ?";
+      let query = "SELECT id, username, password, first_name, last_name, telephone, created_at, modified_at FROM user WHERE username = ?";
       mysqlConnection.query(query, [username], (error, results) => {
         if(error) {
           return reject(error);
