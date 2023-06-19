@@ -39,3 +39,24 @@ export const getUsers = catchAsync(async (req, res) => {
     users
   })
 });
+
+export const getProfile = catchAsync(async (req, res) => {
+  console.log("getProfile", req.user);
+  // get profile
+  const {type, message, statusCode, profile} = await userService.getProfile(req.user);
+
+  // check error
+  if(type == ResponseType.ERROR) {
+    return res.status(statusCode).json({
+      type,
+      message: message
+    })
+  }
+
+  // if everything is OK, send data
+  return res.status(statusCode).json({
+    type,
+    message,
+    profile
+  })
+});

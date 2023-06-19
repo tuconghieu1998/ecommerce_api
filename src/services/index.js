@@ -1,5 +1,6 @@
 import {
-  queryUsers
+  queryUsers,
+  getProfile
 } from './user.service.js';
 
 import {
@@ -17,7 +18,8 @@ import {
 from './auth.service.js';
 
 const userService = {
-  queryUsers
+  queryUsers,
+  getProfile
 };
 
 const categoryService = {
