@@ -4,7 +4,7 @@ import helpers from "../utils/helper.js";
 const Category = {
   getAllCategories: () => {
     return new Promise((resolve, reject) => {
-      let query = "SELECT id, name, description, created_at, modified_at FROM product_category WHERE is_deleted = 0";
+      let query = "SELECT id, name, description, img, created_at, modified_at FROM product_category WHERE is_deleted = 0";
       mysqlConnection.query(query, (error, results) => {
         if(error) {
           return reject(error);

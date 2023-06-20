@@ -6,7 +6,7 @@ import authRouter from './auth.route.js';
 const router = express.Router();
 
 router.use('/users', userRouter);
-router.use('/categories', categoryRouter);
+router.use('/api/categories', categoryRouter);
 router.use('/auth', authRouter);
 
 export default router;
