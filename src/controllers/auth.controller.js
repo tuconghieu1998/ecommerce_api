@@ -34,6 +34,6 @@ export const login = catchAsync(async (req, res) => {
   return res.status(statusCode).json({
     type,
     message,
-    user
+    foundUser: user
   });
 });
