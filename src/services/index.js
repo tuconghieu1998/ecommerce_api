@@ -17,6 +17,11 @@ import {
 }
 from './auth.service.js';
 
+import {
+  getProducts
+}
+from "./product.service.js";
+
 const userService = {
   queryUsers,
   getProfile
@@ -35,8 +40,13 @@ const authService = {
   login
 };
 
+const productService = {
+  getProducts
+};
+
 export {
   userService,
   categoryService,
-  authService
+  authService,
+  productService
 };
