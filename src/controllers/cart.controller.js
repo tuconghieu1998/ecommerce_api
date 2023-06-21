@@ -41,3 +41,37 @@ export const getItemsInCart = catchAsync(async (req, res) => {
     items
   });
 });
+
+export const clearAllItemsInCart = catchAsync(async (req, res) => {
+
+  const { type, message, statusCode} = await cartService.clearAllItemsInCart(req.user);
+
+  // 3) If everything is OK, send data
+  return res.status(statusCode).json({
+    type,
+    message
+  });
+});
+
+export const removeItemFromCart = catchAsync(async (req, res) => {
+
+  const { type, message, statusCode} = await cartService.removeItemFromCart(req.user, req.params.itemId);
+
+  // 3) If everything is OK, send data
+  return res.status(statusCode).json({
+    type,
+    message
+  });
+});
+
+export const updateCartItem = catchAsync(async (req, res) => {
+
+  const { type, message, statusCode, item} = await cartService.updateCartItem(req.user, req.params.itemId, req.body);
+
+  // 3) If everything is OK, send data
+  return res.status(statusCode).json({
+    type,
+    message,
+    item
+  });
+});

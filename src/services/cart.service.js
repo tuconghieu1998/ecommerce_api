@@ -65,3 +65,104 @@ export const getItemsInCart = catchAsync(async (user) => {
     items: itemRows
   };
 });
+
+export const clearAllItemsInCart = catchAsync(async (user) => {
+  console.log("clearAllItemsInCart", user);
+
+  const result = await Cart.clearCart(user.user_id);
+  if(result.affectedRows === 0) {
+    return  {
+      type: ResponseType.ERROR,
+      message: "databaseClearCartItemsError",
+      statusCode: 400
+    }
+  }
+
+  // 4) If everything is OK, send data
+  return {
+    type: ResponseType.SUCCESS,
+    message: 'successfulClearAllCartItems',
+    statusCode: 200,
+  };
+});
+
+export const removeItemFromCart = catchAsync(async (user, itemId) => {
+  console.log("removeItemFromCart", user, itemId);
+
+  // check item in user cart
+  const itemRows = await Cart.getItem(itemId);
+  if(itemRows.length == 0 || itemRows[0].user_id != user.user_id) {
+    return  {
+      type: ResponseType.ERROR,
+      message: "notAuthoried",
+      statusCode: 400
+    }
+  }
+
+  const result = await Cart.removeItem(itemId);
+  if(result.affectedRows === 0) {
+    return  {
+      type: ResponseType.ERROR,
+      message: "databaseClearCartItemsError",
+      statusCode: 400
+    }
+  }
+
+  // 4) If everything is OK, send data
+  return {
+    type: ResponseType.SUCCESS,
+    message: 'successfulClearCartItem',
+    statusCode: 200,
+  };
+});
+
+export const updateCartItem = catchAsync(async (user, itemId, body) => {
+  console.log("updateCartItem", user, itemId);
+
+  // check item in user cart
+  const itemRows = await Cart.getItem(itemId);
+  if(itemRows.length == 0 || itemRows[0].user_id != user.user_id) {
+    return  {
+      type: ResponseType.ERROR,
+      message: "notAuthoried",
+      statusCode: 400
+    }
+  }
+
+  // check params
+  const {quantity} = body;
+  if(!quantity || quantity <= 0) {
+    return  {
+      type: ResponseType.ERROR,
+      message: "invalidParams",
+      statusCode: 400
+    }
+  }
+
+  const result = await Cart.updateQuantityItem(itemId, quantity);
+  if(result.affectedRows === 0) {
+    return  {
+      type: ResponseType.ERROR,
+      message: "updateDataError",
+      statusCode: 400
+    }
+  }
+
+  // check item in user cart
+  const updateItemRows = await Cart.getItem(itemId);
+  if(updateItemRows.length == 0) {
+    return  {
+      type: ResponseType.ERROR,
+      message: "itemUpdateNotFound",
+      statusCode: 400
+    }
+  }
+
+  // 4) If everything is OK, send data
+  return {
+    type: ResponseType.SUCCESS,
+    message: 'successfulUpdateQuantityItem',
+    statusCode: 200,
+    item: updateItemRows[0]
+  };
+});

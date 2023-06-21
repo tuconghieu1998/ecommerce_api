@@ -25,7 +25,10 @@ from "./product.service.js";
 
 import {
   addItemToCart,
-  getItemsInCart
+  getItemsInCart,
+  clearAllItemsInCart,
+  updateCartItem,
+  removeItemFromCart
 }
 from "./cart.service.js";
 
@@ -54,7 +57,10 @@ const productService = {
 
 const cartService = {
   addItemToCart,
-  getItemsInCart
+  getItemsInCart,
+  clearAllItemsInCart,
+  updateCartItem,
+  removeItemFromCart
 }
 
 export {
