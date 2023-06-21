@@ -28,4 +28,25 @@ export const getProducts = catchAsync(async(req, res) => {
     message,
     products
   })
-})
+});
+
+export const getProductById = catchAsync(async (req, res) => {
+
+  // get product by id
+  const {type, message, statusCode, product} = await productService.getProductById(req.params.id);
+
+  // check error
+  if(type == ResponseType.ERROR) {
+    return res.status(statusCode).json({
+      type,
+      message: message
+    })
+  }
+
+  // if everything is OK, send data
+  return res.status(statusCode).json({
+    type,
+    message,
+    product
+  })
+});

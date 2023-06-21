@@ -18,7 +18,8 @@ import {
 from './auth.service.js';
 
 import {
-  getProducts
+  getProducts,
+  getProductById
 }
 from "./product.service.js";
 
@@ -41,7 +42,8 @@ const authService = {
 };
 
 const productService = {
-  getProducts
+  getProducts,
+  getProductById
 };
 
 export {
