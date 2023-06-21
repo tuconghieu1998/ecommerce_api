@@ -24,7 +24,8 @@ import {
 from "./product.service.js";
 
 import {
-  addItemToCart
+  addItemToCart,
+  getItemsInCart
 }
 from "./cart.service.js";
 
@@ -52,7 +53,8 @@ const productService = {
 };
 
 const cartService = {
-  addItemToCart
+  addItemToCart,
+  getItemsInCart
 }
 
 export {

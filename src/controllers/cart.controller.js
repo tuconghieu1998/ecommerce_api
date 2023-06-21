@@ -21,3 +21,23 @@ export const addItemToCart = catchAsync(async (req, res) => {
     item
   });
 });
+
+export const getItemsInCart = catchAsync(async (req, res) => {
+
+  const { type, message, statusCode, items} = await cartService.getItemsInCart(req.user);
+
+  // 2) Check if there is an error
+  if (type === ResponseType.ERROR) {
+    return res.status(statusCode).json({
+      type,
+      message
+    });
+  }
+
+  // 3) If everything is OK, send data
+  return res.status(statusCode).json({
+    type,
+    message,
+    items
+  });
+});
