@@ -23,6 +23,11 @@ import {
 }
 from "./product.service.js";
 
+import {
+  addItemToCart
+}
+from "./cart.service.js";
+
 const userService = {
   queryUsers,
   getProfile
@@ -46,9 +51,14 @@ const productService = {
   getProductById
 };
 
+const cartService = {
+  addItemToCart
+}
+
 export {
   userService,
   categoryService,
   authService,
-  productService
+  productService,
+  cartService
 };
