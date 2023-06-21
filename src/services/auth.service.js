@@ -6,13 +6,13 @@ import bcrypt from 'bcryptjs';
 
 export const registerUser = catchAsync(async(body) => {
   // get user input
-  const {username, password, first_name, last_name, telephone} = body;
+  let {username, password, first_name, last_name, telephone} = body;
   //check params
   if(!(username && password && first_name && last_name)) {
     return {
       type: ResponseType.ERROR,
       message: "Invalid params",
-      statusCode: 404
+      statusCode: 400
     }
   }
   if(!telephone) {
@@ -64,7 +64,7 @@ export const registerUser = catchAsync(async(body) => {
   return {
     type: ResponseType.SUCCESS,
     message: "successfulRegiterUser",
-    statusCode: 200,
+    statusCode: 201,
     user
   }
 });

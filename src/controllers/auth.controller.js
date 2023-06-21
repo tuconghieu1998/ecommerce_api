@@ -16,7 +16,7 @@ export const registerUser = catchAsync(async (req, res) => {
   return res.status(statusCode).json({
     type,
     message,
-    user
+    createdUser: user
   });
 });
 
