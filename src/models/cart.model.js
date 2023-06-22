@@ -3,7 +3,7 @@ import { mysqlConnection } from "../config/db.js";
 const Cart = {
   getItemsInCart: (userId) =>{
     return new Promise((resolve, reject) => {
-      let query = "SELECT cart_item.id as id, user_id, product_id, quantity, product.name, product.img, product.original_price, product.discounted_price, product.size, cart_item.created_at, cart_item.modified_at FROM cart_item LEFT JOIN product ON cart_item.id = product.id WHERE user_id = ? AND is_deleted = '0'";
+      let query = "SELECT cart_item.id as id, user_id, product_id, quantity, product.name, product.img, product.original_price, product.discounted_price, product.size, cart_item.created_at, cart_item.modified_at FROM cart_item LEFT JOIN product ON cart_item.product_id = product.id WHERE user_id = ? AND is_deleted = '0'";
       mysqlConnection.query(query, [userId], (error, results) => {
         if(error) {
           return reject(error);
