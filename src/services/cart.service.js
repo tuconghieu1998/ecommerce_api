@@ -16,9 +16,9 @@ export const addItemToCart = catchAsync(async (user, body) => {
   if(!quantity) {
     quantity = 1;
   }
-  let itemId;
   // find item is added to cart => if yes -> add quantity
   const itemRows = await Cart.getItemByUserAndProductId(user.user_id, product_id);
+  console.log("getItemByUserAndProductId", itemRows);
   if(itemRows.length > 0) {
     const cartItem = itemRows[0];
     const resultUpdate = await Cart.updateQuantityItem(cartItem.id, Number(cartItem.quantity) + Number(quantity));
@@ -29,14 +29,13 @@ export const addItemToCart = catchAsync(async (user, body) => {
         statusCode: 400
       }
     }
-    itemId = cartItem.id;
   }
   else {
     const resultCreate = await Cart.addItem(user.user_id, product_id, quantity);
-    itemId = resultCreate.insertId;
   }
 
-  const createItemRows = await Cart.getItem(itemId);
+  const createItemRows = await Cart.getItemsInCart(user.user_id);
+  console.log("getItemsInCart", user.user_id, createItemRows);
   if(createItemRows.length ===0) {
     return {
       type: ResponseType.ERROR,
@@ -50,7 +49,7 @@ export const addItemToCart = catchAsync(async (user, body) => {
     type: ResponseType.SUCCESS,
     message: 'successfulCreateCartItem',
     statusCode: 200,
-    item: createItemRows[0]
+    cart: createItemRows
   };
 });
 
@@ -62,7 +61,7 @@ export const getItemsInCart = catchAsync(async (user) => {
     type: ResponseType.SUCCESS,
     message: 'successfulGetItemsInCart',
     statusCode: 200,
-    items: itemRows
+    cart: itemRows
   };
 });
 

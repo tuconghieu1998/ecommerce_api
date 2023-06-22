@@ -4,7 +4,7 @@ import { ResponseType } from "../utils/constants.js";
 
 export const addItemToCart = catchAsync(async (req, res) => {
 
-  const { type, message, statusCode, item} = await cartService.addItemToCart(req.user, req.body);
+  const { type, message, statusCode, cart} = await cartService.addItemToCart(req.user, req.body);
 
   // 2) Check if there is an error
   if (type === ResponseType.ERROR) {
@@ -18,13 +18,13 @@ export const addItemToCart = catchAsync(async (req, res) => {
   return res.status(statusCode).json({
     type,
     message,
-    item
+    cart
   });
 });
 
 export const getItemsInCart = catchAsync(async (req, res) => {
 
-  const { type, message, statusCode, items} = await cartService.getItemsInCart(req.user);
+  const { type, message, statusCode, cart} = await cartService.getItemsInCart(req.user);
 
   // 2) Check if there is an error
   if (type === ResponseType.ERROR) {
@@ -38,7 +38,7 @@ export const getItemsInCart = catchAsync(async (req, res) => {
   return res.status(statusCode).json({
     type,
     message,
-    items
+    cart
   });
 });
 
