@@ -35,7 +35,7 @@ export const addItemToCart = catchAsync(async (user, body) => {
   }
 
   const createItemRows = await Cart.getItemsInCart(user.user_id);
-  console.log("getItemsInCart", user.user_id, createItemRows);
+  console.log("getItemsInCart", user.user_id,);
   if(createItemRows.length ===0) {
     return {
       type: ResponseType.ERROR,

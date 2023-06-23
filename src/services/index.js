@@ -32,6 +32,13 @@ import {
 }
 from "./cart.service.js";
 
+import {
+  addItemToWishList,
+  getWishlistItems,
+  removeItemFromWishlist
+}
+from './wishlist.service.js';
+
 const userService = {
   queryUsers,
   getProfile
@@ -63,10 +70,17 @@ const cartService = {
   removeItemFromCart
 }
 
+const wishlistService = {
+  addItemToWishList,
+  getWishlistItems,
+  removeItemFromWishlist
+}
+
 export {
   userService,
   categoryService,
   authService,
   productService,
-  cartService
+  cartService,
+  wishlistService
 };
