@@ -16,15 +16,10 @@ connectDB();
 
 const app = express();
 
-const whitelist = ['http://localhost:3100', 'https://sneakerwebapp.netlify.app/']
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
+  origin: "*",
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200,
 }
 
 // const corsOptions ={
