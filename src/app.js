@@ -12,7 +12,7 @@ dotenv.config();
 const {API_PORT} = process.env;
 
 // connect MySQL Server
-connectDB();
+// connectDB();
 
 const app = express();
 
@@ -29,7 +29,9 @@ app.use(bodyParser.json());
 // use router
 app.use("/", router);
 
-app.listen(API_PORT);
+app.listen(API_PORT, ()=>{
+  console.log(`Server is running`);
+});
 
 // const server = http.createServer((req, res) => {
 //   res.statusCode = 200;
