@@ -12,7 +12,7 @@ dotenv.config();
 const {API_PORT} = process.env;
 
 // connect MySQL Server
-// connectDB();
+connectDB();
 
 const app = express();
 
